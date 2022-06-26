@@ -65,8 +65,13 @@ for para in soup.find_all("p"):
         signal = sample_classify_text(text_content = text_content)  
         annotated_text(
 
-        (text_content, signal),
-        (text_content, "brand unsafe")
+        (text_content, signal, "style": {
+          "color": "grey",
+          "background-color": "red",
+          "font-size": "8px",
+          "font-weight": "900",
+          }),
+
         
         )
         
