@@ -9,7 +9,6 @@ from google.cloud import language_v1
 Add a URL to run through the classifier. It may take 5-10 seconds to complete the task! The text model is based on the Google Clound NL API and Brand Safety Classifier.
 """
 
-st.write("hello!")
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 input = st.text_area("Insert Text", URL)
 
@@ -46,6 +45,6 @@ for para in soup.find_all("p"):
         st.write("paragraph #",str(i))
         st.write(para.get_text())
         text_content = para.get_text()
-        #sample_classify_text(text_content=text_content)
+        sample_classify_text(text_content=text_content)
         i+=1
         
