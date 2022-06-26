@@ -45,6 +45,6 @@ for para in soup.find_all("p"):
         st.write("paragraph #",str(i))
         st.write(para.get_text())
         text_content = para.get_text()
-        sample_classify_text(text_content=text_content)
+        #sample_classify_text(text_content=text_content)
         i+=1
         
