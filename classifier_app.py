@@ -50,7 +50,7 @@ def sample_classify_text(text_content):
     for category in response.categories:
         st.write(u"Category name: {}".format(category.name))
         st.write(u"Confidence: {}".format(category.confidence))
-        if input2 in category.name and category.confidence >= input3 and signal == 'brand safe':
+        if input2 in str(category.name) and category.confidence >= input3 and signal == 'brand safe':
             signal = 'brand unsafe'
     return signal
 URL = input
