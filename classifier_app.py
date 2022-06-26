@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-from google.cloud import language_v1
+from google.cloud import language_v1 as gc
 #from annotated_text import annotated_text
 
 """
@@ -25,7 +25,7 @@ def sample_classify_text(text_content):
 
 
     # Available types: PLAIN_TEXT, HTML
-    type_ = language_v1.Document.Type.PLAIN_TEXT
+    type_ = gc.Document.Type.PLAIN_TEXT
 
     language = "en"
     document = {"content": text_content, "type_": type_, "language": language}
