@@ -21,7 +21,7 @@ def sample_classify_text(text_content):
       text_content The text content to analyze. Must include at least 20 words.
     """
 
-    client = language_v1.LanguageServiceClient()
+    client = gc.LanguageServiceClient()
 
 
     # Available types: PLAIN_TEXT, HTML
