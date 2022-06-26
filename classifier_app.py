@@ -25,7 +25,7 @@ def sample_classify_text(text_content):
 
 
     language = "en"
-    type_ = language_v1.Type.PLAIN_TEXT
+    type_ = language_v1.PLAIN_TEXT
     document = {"content": text_content, "type_": type_, "language": language}
 
     response = client.classify_text(request = {'document': document})
