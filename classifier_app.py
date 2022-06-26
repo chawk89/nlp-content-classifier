@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 from bs4 import BeautifulSoup
-#from google.cloud import language_v1
+from google.cloud import language_v1
 #from annotated_text import annotated_text
 
 """
