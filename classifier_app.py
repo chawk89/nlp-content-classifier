@@ -13,10 +13,10 @@ Add a URL to run through the classifier. It may take 5-10 seconds to complete th
 
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 input = st.text_area("Insert Text", URL)
-input2 = st.multiselect(
+input2 = st.selectbox(
      'Which categories should be flaffed?',
-     ['Sensitive Subjects', 'Adult'],
-     ['Sensitive Subjects'])
+     ['Sensitive Subjects', 'Adult']
+     )
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
 
@@ -50,7 +50,7 @@ def sample_classify_text(text_content):
     for category in response.categories:
         st.write(u"Category name: {}".format(category.name))
         st.write(u"Confidence: {}".format(category.confidence))
-        if input2 in str(category.name) and category.confidence >= input3 and signal == 'brand safe':
+        if input2 in category.name and category.confidence >= input3 and signal == 'brand safe':
             signal = 'brand unsafe'
     return signal
 URL = input
