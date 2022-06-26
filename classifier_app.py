@@ -2,7 +2,8 @@ import streamlit as st
 import requests
 from bs4 import BeautifulSoup
 from google.cloud import language_v1 as gc
-#from annotated_text import annotated_text
+from google.cloud import documentai_v1 as documentai
+from annotated_text import annotated_text
 
 """
 # Brand Safety Classifier
