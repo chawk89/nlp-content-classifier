@@ -57,7 +57,7 @@ for para in soup.find_all("p"):
         st.write(text_content)
         annotated_text(
 
-        (text_content, sample_classify_text(text_content = text_content)),
+        (text_content, 'brand unsafe'),
         
         )
         sample_classify_text(text_content = text_content)
