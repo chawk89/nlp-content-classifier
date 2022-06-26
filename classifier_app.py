@@ -24,8 +24,10 @@ def sample_classify_text(text_content):
     client = language_v1.LanguageServiceClient()
 
 
+    # Available types: PLAIN_TEXT, HTML
+    type_ = language_v1.Document.Type.PLAIN_TEXT
+
     language = "en"
-    type_ = enums.Document.Type.PLAIN_TEXT
     document = {"content": text_content, "type_": type_, "language": language}
 
     response = client.classify_text(request = {'document': document})
