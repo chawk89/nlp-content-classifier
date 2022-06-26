@@ -3,4 +3,3 @@ streamlit
 requests
 bs4
 google.cloud < 0.34.0
-google.cloud.language_v1
