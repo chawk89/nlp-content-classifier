@@ -52,7 +52,7 @@ def sample_classify_text(text_content):
         st.write(u"Confidence: {}".format(category.confidence))
         if input2 in category.name and category.confidence >= input3 and signal == 'brand safe':
             signal = 'brand unsafe'
-
+    return signal
 URL = input
 page = requests.get(URL)
 soup = BeautifulSoup(page.content, "html.parser")
