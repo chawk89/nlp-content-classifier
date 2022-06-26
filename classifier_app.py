@@ -8,11 +8,11 @@ from annotated_text import annotated_text
 
 """
 # Brand Safety Classifier
-Add a URL to run through the classifier. It may take 5-10 seconds to complete the task! The text model is based on the Google Clound NL API and Brand Safety Classifier.
+Add a URL and set parameters to run the demo classifier. The text model is based on the Google Clound NL API and Brand Safety Classifier.
 """
 
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
-input = st.text_area("Insert Text", URL)
+input = st.text_area("Insert URL", URL)
 input2 = st.selectbox(
      'Which categories should be flaffed?',
      ['Sensitive Subjects', 'Adult']
@@ -48,10 +48,11 @@ def sample_classify_text(text_content):
     signal = 'brand safe'
     # Loop through classified categories returned from the API
     for category in response.categories:
-        st.write(u"Category name: {}".format(category.name))
-        st.write(u"Confidence: {}".format(category.confidence))
+        #st.write(u"Category name: {}".format(category.name))
+        #st.write(u"Confidence: {}".format(category.confidence))
         if input2 in category.name and category.confidence >= input3 and signal == 'brand safe':
             signal = 'brand unsafe'
+            st.write(u"Confidence: {}".format(category.confidence))   
     return signal
 URL = input
 page = requests.get(URL)
@@ -70,6 +71,6 @@ for para in soup.find_all("p"):
         annotated_text(
         (text_content, signal, background),
         )
-        
+        st.markdown("""---""")
         i+=1
         
