@@ -27,6 +27,7 @@ def sample_classify_text(text_content):
     credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
     client = gc.LanguageServiceClient(credentials=credentials)
+    )
 
 
     # Available types: PLAIN_TEXT, HTML
