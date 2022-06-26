@@ -13,6 +13,11 @@ Add a URL to run through the classifier. It may take 5-10 seconds to complete th
 
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 input = st.text_area("Insert Text", URL)
+input2 = st.multiselect(
+     'Which categories should be flaffed?',
+     ['Sensitive Subjects', 'Adult'],
+     ['Sensitive Subjects'])
+input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
 
 
@@ -38,12 +43,15 @@ def sample_classify_text(text_content):
     document = {"content": text_content, "type_": type_, "language": language}
 
     response = client.classify_text(request = {'document': document})
+    
+    # Define the brand safety signal, and assume safe unless indicated otherise:
+    signal = 'brand safe'
     # Loop through classified categories returned from the API
     for category in response.categories:
-
         st.write(u"Category name: {}".format(category.name))
-
         st.write(u"Confidence: {}".format(category.confidence))
+        if input2 in category.name and category.confidence >= input3 and signal == 'brand safe':
+            signal = 'brand unsafe'
 
 URL = input
 page = requests.get(URL)
@@ -57,7 +65,7 @@ for para in soup.find_all("p"):
         st.write(text_content)
         annotated_text(
 
-        (text_content, 'brand unsafe'),
+        (text_content, signal),
         
         )
         sample_classify_text(text_content = text_content)
