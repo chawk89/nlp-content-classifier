@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from google.cloud import language_v1 as gc
 from google.cloud import documentai_v1 as documentai
+from google.oauth2 import service_account
 from annotated_text import annotated_text
 
 """
@@ -14,6 +15,7 @@ URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 input = st.text_area("Insert Text", URL)
 
 
+
 def sample_classify_text(text_content):
     """
     Classifying Content in a String
@@ -22,7 +24,9 @@ def sample_classify_text(text_content):
       text_content The text content to analyze. Must include at least 20 words.
     """
 
-    client = gc.LanguageServiceClient()
+    credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+    client = gc.LanguageServiceClient(credentials=credentials)
 
 
     # Available types: PLAIN_TEXT, HTML
