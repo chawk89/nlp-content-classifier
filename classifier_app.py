@@ -62,11 +62,11 @@ for para in soup.find_all("p"):
     if(len(str(para)) > 175):
         st.write("paragraph #",str(i))
         text_content = para.get_text()
-        st.write(text_content)
         signal = sample_classify_text(text_content = text_content)  
         annotated_text(
 
         (text_content, signal),
+        (text_content, "brand unsafe")
         
         )
         
