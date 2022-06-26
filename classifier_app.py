@@ -11,6 +11,7 @@ from annotated_text import annotated_text
 Add a URL and set parameters to run the demo classifier. The text model is based on the Google Clound NL API and Brand Safety Classifier.
 """
 
+# Get user inputs
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 input = st.text_area("Insert URL", URL)
 input2 = st.selectbox(
@@ -20,7 +21,7 @@ input2 = st.selectbox(
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
 
-
+# Define the function
 def sample_classify_text(text_content):
     """
     Classifying Content in a String
@@ -46,13 +47,20 @@ def sample_classify_text(text_content):
     
     # Define the brand safety signal, and assume safe unless indicated otherise:
     signal = 'brand safe'
+     
     # Loop through classified categories returned from the API
     for category in response.categories:
+          
         #st.write(u"Category name: {}".format(category.name))
         #st.write(u"Confidence: {}".format(category.confidence))
+          
         if input2 in category.name and category.confidence >= input3 and signal == 'brand safe':
             signal = 'brand unsafe'
+               
+            # Note that the following output only details the first category and confidence that affects the brand safety flag   
+            st.write(u"Category name: {}".format(category.name))
             st.write(u"Confidence: {}".format(category.confidence))   
+          
     return signal
 URL = input
 page = requests.get(URL)
