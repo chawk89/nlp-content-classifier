@@ -25,7 +25,7 @@ def sample_classify_text(text_content):
 
 
     language = "en"
-    #document = {"content": text_content, "type_": type_, "language": language}
+    document = {"content": text_content, "type_": type_, "language": language}
 
     response = client.classify_text(request = {'document': document})
     # Loop through classified categories returned from the API
