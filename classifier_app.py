@@ -13,7 +13,7 @@ URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 input = st.text_area("Insert Text", URL)
 
 
-def sample_classify_text(input):
+def sample_classify_text(text_content):
     """
     Classifying Content in a String
 
@@ -43,8 +43,8 @@ i=0
 for para in soup.find_all("p"):
     if(len(str(para)) > 175):
         st.write("paragraph #",str(i))
-        st.write(para.get_text())
         text_content = para.get_text()
-        sample_classify_text(text_content=text_content)
+        st.write(text_content)
+        sample_classify_text(text_content = text_content)
         i+=1
         
