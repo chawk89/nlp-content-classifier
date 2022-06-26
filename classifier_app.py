@@ -62,17 +62,13 @@ for para in soup.find_all("p"):
     if(len(str(para)) > 175):
         st.write("paragraph #",str(i))
         text_content = para.get_text()
-        signal = sample_classify_text(text_content = text_content)  
+        signal = sample_classify_text(text_content = text_content)
+        if signal == 'brand unsafe':
+          background = "#faa"
+        else:
+          background = "#dcdcdc"
         annotated_text(
-
-        (text_content, signal, "style": {
-          "color": "grey",
-          "background-color": "red",
-          "font-size": "8px",
-          "font-weight": "900",
-          }),
-
-        
+        (text_content, signal, background),
         )
         
         i+=1
