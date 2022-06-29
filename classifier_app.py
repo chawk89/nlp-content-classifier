@@ -150,7 +150,7 @@ else:
      # Run classifier
      i=0
      for para in soup.find_all("p"):
-         if(len(str(para)) > 175):
+          if(len(str(para)) > 175):
              st.write("paragraph #",str(i))
              text_content = para.get_text()
              if input4 == 'No':
@@ -165,5 +165,5 @@ else:
              (text_content, signal, background),
              )
              st.markdown("""---""")
-        i+=1
+          i+=1
         
