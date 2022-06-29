@@ -15,13 +15,13 @@ Add a URL and set parameters to run the demo classifier. The text model is based
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 input = st.text_area("Insert URL", URL)
 input2 = st.selectbox(
-     'Which categories should be flagged?',
-     ['Sensitive Subjects', 'Adult']
+     '[Cloud NL API] Which categories should be flagged?',
+     ['None', 'Sensitive Subjects', 'Adult']
      )
 
 input4 = st.selectbox(
      'Use the Content Moderation API?',
-     ['Yes', 'No']
+     ['No','Yes']
      )
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
