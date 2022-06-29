@@ -108,11 +108,6 @@ def moderate_content(text_content):
      result = client.process_document(request=request)
      document = result.document
      
-     if uploaded_file is not None:
-          st.write(document.text)
-          OCR = document.text
-     else:
-          OCR = ''
      
      # Define the brand safety signal, and assume safe unless indicated otherise:
      signal = 'brand safe'
@@ -123,8 +118,23 @@ def moderate_content(text_content):
              # Note that the following output only details the first category and confidence that affects the brand safety flag   
              st.write(u"Category name: {}".format(entity.type_))
              st.write(u"Confidence: {}".format(entity.confidence))
-          
-     return signal, OCR
+     
+     if uploaded_file is not None:
+          st.write(document.text)
+          OCR = document.text
+          if signal == 'brand unsafe':
+               background = "#faa"
+          else:
+              background = "#dcdcdc"
+              annotated_text(
+              (OCR, signal, background),
+              )
+     else:
+          OCR = ''
+     
+     
+     
+     return signal
 
 # Function not currently used               
 def brand_safety_check(input4, text_content):
@@ -149,13 +159,7 @@ if uploaded_file is not None:
          signal = classify_text(text_content = text_content)
      else:
          signal = moderate_content(text_content = text_content) 
-     if signal == 'brand unsafe':
-         background = "#faa"
-     else:
-         background = "#dcdcdc"
-         annotated_text(
-         (OCR, signal, background),
-         )
+     
 
 else: 
      # Take URL input and parse
