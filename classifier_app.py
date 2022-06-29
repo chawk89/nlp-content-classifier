@@ -18,7 +18,7 @@ input = st.text_area("Insert URL", URL)
 uploaded_file = st.file_uploader("Choose a file")
 
 if uploaded_file is not None:
-    image_content = uploaded_file
+    text_content = uploaded_file
      
 input2 = st.selectbox(
      '[Cloud NL API] Which categories should be flagged?',
