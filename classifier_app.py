@@ -13,7 +13,15 @@ Add a URL and set parameters to run the demo classifier. The text model is based
 
 # Get user inputs
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
+
 input = st.text_area("Insert URL", URL)
+uploaded_file = st.file_uploader("Choose a file")
+
+if uploaded_file is not None:
+     # To read file as bytes:
+     bytes_data = uploaded_file.getvalue()
+     st.write(bytes_data)
+     
 input2 = st.selectbox(
      '[Cloud NL API] Which categories should be flagged?',
      ['None', 'Sensitive Subjects', 'Adult']
@@ -86,10 +94,15 @@ def moderate_content(text_content):
 
      name = client.processor_path(project_id, location, processor_id)
 
-     document = documentai.Document(text=text_content, mime_type='text/plain')
+     if uploaded_file is not None:
+          document = documentai.RawDocument(content=text_content, mime_type='image/png')
+          request = documentai.ProcessRequest(name=name, raw_document=document)
+     else:
+          document = documentai.Document(text=text_content, mime_type='plain/text')
+          request = documentai.ProcessRequest(name=name, inline_document=document)
+     
      print(name)
      print(document)
-     request = documentai.ProcessRequest(name=name, inline_document=document)
 
      # Send request
      result = client.process_document(request=request)
@@ -107,29 +120,50 @@ def moderate_content(text_content):
           
      return signal
                
+def brand_safety_check(input4, text_content):
+     if input4 == 'No':
+         signal = classify_text(text_content = text_content)
+     else:
+         signal = moderate_content(text_content = text_content) 
+     if signal == 'brand unsafe':
+         background = "#faa"
+     else:
+         background = "#dcdcdc"
+         annotated_text(
+         (text_content, signal, background),
+         )
 
-# Take URL input and parse
 
-URL = input
-page = requests.get(URL)
-soup = BeautifulSoup(page.content, "html.parser")
 
-i=0
-for para in soup.find_all("p"):
-    if(len(str(para)) > 175):
-        st.write("paragraph #",str(i))
-        text_content = para.get_text()
-        if input4 == 'No':
-          signal = classify_text(text_content = text_content)
-        else:       
-          signal = moderate_content(text_content = text_content)   
-        if signal == 'brand unsafe':
-          background = "#faa"
-        else:
-          background = "#dcdcdc"
-        annotated_text(
-        (text_content, signal, background),
-        )
-        st.markdown("""---""")
+
+
+if uploaded_file is not None:
+     text_content = uploaded_file
+     brand_safety_check(input4, text_content)
+
+else: 
+     # Take URL input and parse
+     URL = input
+     page = requests.get(URL)
+     soup = BeautifulSoup(page.content, "html.parser")
+     
+     # Run classifier
+     i=0
+     for para in soup.find_all("p"):
+         if(len(str(para)) > 175):
+             st.write("paragraph #",str(i))
+             text_content = para.get_text()
+             if input4 == 'No':
+               signal = classify_text(text_content = text_content)
+             else:       
+               signal = moderate_content(text_content = text_content)   
+             if signal == 'brand unsafe':
+               background = "#faa"
+             else:
+               background = "#dcdcdc"
+             annotated_text(
+             (text_content, signal, background),
+             )
+             st.markdown("""---""")
         i+=1
         
