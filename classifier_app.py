@@ -18,9 +18,8 @@ input = st.text_area("Insert URL", URL)
 uploaded_file = st.file_uploader("Choose a file")
 
 if uploaded_file is not None:
-     # To read file as bytes:
-     bytes_data = uploaded_file.getvalue()
-     st.write(bytes_data)
+    with open(file_path, "rb") as image:
+          image_content = image.read()
      
 input2 = st.selectbox(
      '[Cloud NL API] Which categories should be flagged?',
@@ -138,7 +137,6 @@ def brand_safety_check(input4, text_content):
 
 
 if uploaded_file is not None:
-     text_content = uploaded_file
      if input4 == 'No':
          signal = classify_text(text_content = text_content)
      else:
