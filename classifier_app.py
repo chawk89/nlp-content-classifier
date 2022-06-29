@@ -139,7 +139,17 @@ def brand_safety_check(input4, text_content):
 
 if uploaded_file is not None:
      text_content = uploaded_file
-     brand_safety_check(input4, text_content)
+     if input4 == 'No':
+         signal = classify_text(text_content = text_content)
+     else:
+         signal = moderate_content(text_content = text_content) 
+     if signal == 'brand unsafe':
+         background = "#faa"
+     else:
+         background = "#dcdcdc"
+         annotated_text(
+         (text_content, signal, background),
+         )
 
 else: 
      # Take URL input and parse
