@@ -21,8 +21,8 @@ input2 = st.selectbox(
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
 
-# Define the function
-def sample_classify_text(text_content):
+# Define the NL API function
+def classify_text(text_content):
     """
     Classifying Content in a String
 
@@ -62,6 +62,49 @@ def sample_classify_text(text_content):
             st.write(u"Confidence: {}".format(category.confidence))   
           
     return signal
+
+
+def moderate_content(text_content):
+     project_id= '514252618350'
+     location = 'us'
+     processor_id = 'f216a158ccba793f'
+     credentials = service_account.Credentials.from_service_account_info(
+     st.secrets["gcp_service_account"]
+     )
+
+     opts = {"api_endpoint": f"{location}-documentai.googleapis.com"}
+
+     if location == "eu":
+         opts = {"api_endpoint": "eu-documentai.googleapis.com"}
+
+     client = documentai.DocumentProcessorServiceClient(client_options=opts, credentials=credentials)
+
+     name = client.processor_path(project_id, location, processor_id)
+
+     document = documentai.Document(text=text_content, mime_type='text/plain')
+     print(name)
+     print(document)
+     request = documentai.ProcessRequest(name=name, inline_document=document)
+
+     # Send request
+     result = client.process_document(request=request)
+     document = result.document
+     
+     # Define the brand safety signal, and assume safe unless indicated otherise:
+     signal = 'brand safe'
+
+     for entity in document.entities:
+         if entity.confidence >= input3 and signal == 'brand safe':
+             signal = 'brand unsafe'
+             # Note that the following output only details the first category and confidence that affects the brand safety flag   
+             st.write(u"Category name: {}".format(entity.type_))
+             st.write(u"Confidence: {}".format(entity.confidence))
+          
+     return signal
+               
+
+# Take URL input and parse
+
 URL = input
 page = requests.get(URL)
 soup = BeautifulSoup(page.content, "html.parser")
@@ -71,7 +114,7 @@ for para in soup.find_all("p"):
     if(len(str(para)) > 175):
         st.write("paragraph #",str(i))
         text_content = para.get_text()
-        signal = sample_classify_text(text_content = text_content)
+        signal = classify_text(text_content = text_content)
         if signal == 'brand unsafe':
           background = "#faa"
         else:
