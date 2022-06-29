@@ -15,8 +15,13 @@ Add a URL and set parameters to run the demo classifier. The text model is based
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 input = st.text_area("Insert URL", URL)
 input2 = st.selectbox(
-     'Which categories should be flaffed?',
+     'Which categories should be flagged?',
      ['Sensitive Subjects', 'Adult']
+     )
+
+input4 = st.selectbox(
+     'Use the Content Moderation API?',
+     ['Yes', 'No']
      )
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
@@ -114,7 +119,10 @@ for para in soup.find_all("p"):
     if(len(str(para)) > 175):
         st.write("paragraph #",str(i))
         text_content = para.get_text()
-        signal = classify_text(text_content = text_content)
+        if input4 == 'No':
+          signal = classify_text(text_content = text_content)
+        else:       
+          signal = moderate_content(text_content = text_content)   
         if signal == 'brand unsafe':
           background = "#faa"
         else:
