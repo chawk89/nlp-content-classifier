@@ -29,7 +29,7 @@ if input4 == 'Natural Language API':
           )
 else:
      uploaded_file = st.file_uploader("Choose a file")
-          if uploaded_file is not None:
+     if uploaded_file is not None:
           # To read file as bytes:
           text_content = uploaded_file.getvalue()
 
