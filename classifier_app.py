@@ -27,6 +27,7 @@ if input4 == 'Natural Language API':
           '[Cloud NL API] Which categories should be flagged?',
           ['None', 'Sensitive Subjects', 'Adult', 'Health']
           )
+      uploaded_file = None
 else:
      uploaded_file = st.file_uploader("Choose a file")
      if uploaded_file is not None:
@@ -138,7 +139,7 @@ def moderate_content(text_content):
 
 # If upload detected, run the content moderation without URL scraping
 if uploaded_file is not None:
-         signal = moderate_content(text_content = text_content) 
+     signal = moderate_content(text_content = text_content) 
           
 # Scrape URL and run classifier    
 else: 
