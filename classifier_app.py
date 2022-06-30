@@ -14,23 +14,25 @@ Add a URL and set parameters to run the demo classifier. The text model is based
 # Get user inputs
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
 
-input = st.text_area("Insert URL", URL)
-uploaded_file = st.file_uploader("Choose a file")
-if uploaded_file is not None:
-     # To read file as bytes:
-     text_content = uploaded_file.getvalue()
-
-
-     
-input2 = st.selectbox(
-     '[Cloud NL API] Which categories should be flagged?',
-     ['None', 'Sensitive Subjects', 'Adult']
-     )
 
 input4 = st.selectbox(
-     'Use the Content Moderation API?',
-     ['No','Yes']
+     'Select the API: ',
+     ['Natural Language API','Content Moderation API']
      )
+
+input = st.text_area("Insert URL", URL)
+
+if input4 = 'Natural Language API':
+     input2 = st.selectbox(
+          '[Cloud NL API] Which categories should be flagged?',
+          ['None', 'Sensitive Subjects', 'Adult', 'Health']
+          )
+else:
+     uploaded_file = st.file_uploader("Choose a file")
+          if uploaded_file is not None:
+          # To read file as bytes:
+          text_content = uploaded_file.getvalue()
+
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
 
@@ -131,36 +133,14 @@ def moderate_content(text_content):
               )
      else:
           OCR = ''
-     
-     
-     
+         
      return signal
 
-# Function not currently used               
-def brand_safety_check(input4, text_content):
-     if input4 == 'No':
-         signal = classify_text(text_content = text_content)
-     else:
-         signal = moderate_content(text_content = text_content) 
-     if signal == 'brand unsafe':
-         background = "#faa"
-     else:
-         background = "#dcdcdc"
-         annotated_text(
-         (OCR, signal, background),
-         )
-
-
-
-
-
+# If upload detected, run the content moderation without URL scraping
 if uploaded_file is not None:
-     if input4 == 'No':
-         signal = classify_text(text_content = text_content)
-     else:
          signal = moderate_content(text_content = text_content) 
-     
-
+          
+# Scrape URL and run classifier    
 else: 
      # Take URL input and parse
      URL = input
@@ -173,7 +153,7 @@ else:
           if(len(str(para)) > 175):
              st.write("paragraph #",str(i))
              text_content = para.get_text()
-             if input4 == 'No':
+             if input4 == 'Natural Language API':
                signal = classify_text(text_content = text_content)
              else:       
                signal = moderate_content(text_content = text_content)   
