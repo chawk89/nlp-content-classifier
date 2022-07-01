@@ -23,10 +23,6 @@ input4 = st.selectbox(
 # Show option based on user selection 
 
 if input4 == 'Natural Language API':
-     input6 = st.radio(
-          "Select Input ",
-          ('URL', 'Free Text')
-          )
      input2 = st.selectbox(
           '[Cloud NL API] Which categories should be flagged?',
           ['None', 'Sensitive Subjects', 'Adult', 'Health']
@@ -37,7 +33,7 @@ else:
      "Select Input ",
      ('URL', 'Free Text', 'PNG File'))
 
-# Show input options based on user selection     
+# If user chooses the Content Moderation API: Show input options based on user selection     
 if input6 == 'Free Text':
      uploaded_file = None
      input5 = st.text_area("Insert Free Text") 
