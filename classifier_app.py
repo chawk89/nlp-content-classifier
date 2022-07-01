@@ -23,6 +23,7 @@ input4 = st.selectbox(
 # Show option based on user selection 
 
 if input4 == 'Natural Language API':
+     input = st.text_area("Insert URL", URL)
      input2 = st.selectbox(
           '[Cloud NL API] Which categories should be flagged?',
           ['None', 'Sensitive Subjects', 'Adult', 'Health']
@@ -36,7 +37,7 @@ else:
 # If user chooses the Content Moderation API: Show input options based on user selection     
 if input6 == 'Free Text':
      uploaded_file = None
-     input5 = st.text_area("Insert Free Text") 
+     input5 = st.text_area("Insert Free Text", "Moderating content at scale can be tough." ) 
      text_content = input5
 elif input6 == 'URL':
      uploaded_file = None          
@@ -48,8 +49,8 @@ elif input6 == 'PNG File':
           # To read file as bytes:
           text_content = uploaded_file.getvalue()
      else:
-          pass
-
+          print("this!")
+ # Set threshold
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
 
