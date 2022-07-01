@@ -49,7 +49,7 @@ elif input6 == 'PNG File':
           # To read file as bytes:
           text_content = uploaded_file.getvalue()
      else:
-          print("this!")
+          pass
  # Set threshold
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
@@ -120,9 +120,6 @@ def moderate_content(text_content):
      else:
           document = documentai.Document(text=text_content, mime_type='plain/text')
           request = documentai.ProcessRequest(name=name, inline_document=document)
-     
-     print(name)
-     print(document)
 
      # Send request
      result = client.process_document(request=request)
