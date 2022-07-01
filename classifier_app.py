@@ -21,6 +21,7 @@ input4 = st.selectbox(
      )
 
 input = st.text_area("Insert URL", URL)
+input5 = st.text_area("Insert Free Text")
 
 if input4 == 'Natural Language API':
      input2 = st.selectbox(
@@ -141,7 +142,20 @@ def moderate_content(text_content):
 if uploaded_file is not None:
      signal = moderate_content(text_content = text_content) 
           
-# Scrape URL and run classifier    
+else if input5 is not None:
+   if input4 == 'Natural Language API':
+     signal = classify_text(text_content = text_content)
+   else:       
+     signal = moderate_content(text_content = text_content)   
+   if signal == 'brand unsafe':
+     background = "#faa"
+   else:
+     background = "#dcdcdc"
+   annotated_text(
+   (text_content, signal, background),
+   )
+
+# Scrape URL and run classifier
 else: 
      # Take URL input and parse
      URL = input
