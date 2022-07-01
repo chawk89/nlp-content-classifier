@@ -142,7 +142,7 @@ def moderate_content(text_content):
 if uploaded_file is not None:
      signal = moderate_content(text_content = text_content) 
           
-else if input5 is not None:
+elif input5 is not None:
    if input4 == 'Natural Language API':
      signal = classify_text(text_content = text_content)
    else:       
