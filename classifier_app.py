@@ -172,7 +172,7 @@ elif input6 == 'Free Text':
    )
 
 # Scrape URL and run classifier
-else: 
+elif uploaded_file is None: 
      # Take URL input and parse
      URL = input
      page = requests.get(URL)
