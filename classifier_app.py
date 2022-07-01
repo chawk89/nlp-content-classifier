@@ -41,9 +41,11 @@ else:
 if input6 == 'Free Text':
      uploaded_file = None
      input5 = st.text_area("Insert Free Text") 
+     text_content = input5
 elif input6 == 'URL':
      uploaded_file = None          
      input = st.text_area("Insert URL", URL)
+     #text_content variable will be assigned after parsing paragraphs
 elif input6 == 'PNG File':     
      uploaded_file = st.file_uploader("Choose a file")
      if uploaded_file is not None:
