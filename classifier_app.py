@@ -28,29 +28,34 @@ if input4 == 'Natural Language API':
           '[Cloud NL API] Which categories should be flagged?',
           ['None', 'Sensitive Subjects', 'Adult', 'Health']
           )
+     input6 = st.radio(
+     "Select Input ",
+     ('URL', 'Free Text'))
+
      uploaded_file = None
 else:
      input6 = st.radio(
      "Select Input ",
      ('URL', 'Free Text', 'PNG File'))
 
-# If user chooses the Content Moderation API: Show input options based on user selection 
-if input4 == 'Content Moderation API':
-     if input6 == 'Free Text':
-          uploaded_file = None
-          input5 = st.text_area("Insert Free Text", "Moderating content at scale can be tough." ) 
-          text_content = input5
-     elif input6 == 'URL':
-          uploaded_file = None          
-          input = st.text_area("Insert URL", URL)
-          #text_content variable will be assigned after parsing paragraphs
-     elif input6 == 'PNG File':     
-          uploaded_file = st.file_uploader("Choose a file")
-          if uploaded_file is not None:
-               # To read file as bytes:
-               text_content = uploaded_file.getvalue()
-          else:
-               pass
+# Show input fields based on user selection 
+
+if input6 == 'Free Text':
+     uploaded_file = None
+     input5 = st.text_area("Insert Free Text", "Moderating content at scale can be tough." ) 
+     text_content = input5
+elif input6 == 'URL':
+     uploaded_file = None          
+     input = st.text_area("Insert URL", URL)
+     #text_content variable will be assigned after parsing paragraphs
+elif input6 == 'PNG File':     
+     uploaded_file = st.file_uploader("Choose a file")
+     if uploaded_file is not None:
+          # To read file as bytes:
+          text_content = uploaded_file.getvalue()
+     else:
+          pass
+     
  # Set threshold
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
@@ -155,7 +160,8 @@ def moderate_content(text_content):
 # If upload detected, run the content moderation without URL scraping
 if uploaded_file is not None:
      signal = moderate_content(text_content = text_content) 
-          
+
+# If free text is detected, run the content moderation without URL scraping     
 elif input6 == 'Free Text':
    text_content = input5
    if input4 == 'Natural Language API':
@@ -171,7 +177,7 @@ elif input6 == 'Free Text':
    )
 
 # Scrape URL and run classifier
-elif uploaded_file is None: 
+elif input6 == 'URL': 
      # Take URL input and parse
      URL = input
      page = requests.get(URL)
