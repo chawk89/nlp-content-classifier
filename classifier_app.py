@@ -13,7 +13,7 @@ Add a URL and set parameters to run the demo classifier. The text model is based
 
 # Get user inputs
 URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
-
+Text = 'The small plane carrying a pilot and two passengers was travelling north over Haulover Inlet Bridge when it crashed into an SUV travelling southbound, Miami-Dade police said in a press release. The plane then caught fire and fire officials discovered a body in the plane while extinguishing the flames.'
 
 input4 = st.selectbox(
      'Select the API: ',
@@ -41,7 +41,7 @@ else:
 
 if input6 == 'Free Text':
      uploaded_file = None
-     input5 = st.text_area("Insert Free Text", "Moderating content at scale can be tough." ) 
+     input5 = st.text_area("Insert Free Text", Text ) 
      text_content = input5
 elif input6 == 'URL':
      uploaded_file = None          
