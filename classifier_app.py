@@ -34,22 +34,23 @@ else:
      "Select Input ",
      ('URL', 'Free Text', 'PNG File'))
 
-# If user chooses the Content Moderation API: Show input options based on user selection     
-if input6 == 'Free Text':
-     uploaded_file = None
-     input5 = st.text_area("Insert Free Text", "Moderating content at scale can be tough." ) 
-     text_content = input5
-elif input6 == 'URL':
-     uploaded_file = None          
-     input = st.text_area("Insert URL", URL)
-     #text_content variable will be assigned after parsing paragraphs
-elif input6 == 'PNG File':     
-     uploaded_file = st.file_uploader("Choose a file")
-     if uploaded_file is not None:
-          # To read file as bytes:
-          text_content = uploaded_file.getvalue()
-     else:
-          pass
+# If user chooses the Content Moderation API: Show input options based on user selection 
+if input4 == 'Content Moderation API':
+     if input6 == 'Free Text':
+          uploaded_file = None
+          input5 = st.text_area("Insert Free Text", "Moderating content at scale can be tough." ) 
+          text_content = input5
+     elif input6 == 'URL':
+          uploaded_file = None          
+          input = st.text_area("Insert URL", URL)
+          #text_content variable will be assigned after parsing paragraphs
+     elif input6 == 'PNG File':     
+          uploaded_file = st.file_uploader("Choose a file")
+          if uploaded_file is not None:
+               # To read file as bytes:
+               text_content = uploaded_file.getvalue()
+          else:
+               pass
  # Set threshold
 input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
