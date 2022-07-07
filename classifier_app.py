@@ -23,7 +23,6 @@ input4 = st.selectbox(
 # Show option based on user selection 
 
 if input4 == 'Natural Language API':
-     input = st.text_area("Insert URL", URL)
      input2 = st.selectbox(
           '[Cloud NL API] Which categories should be flagged?',
           ['None', 'Sensitive Subjects', 'Adult', 'Health']
