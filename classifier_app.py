@@ -12,42 +12,42 @@ Add a URL and set parameters to run the demo classifier. The text model is based
 """
 
 # Get user inputs
-URL = 'https://www.cbsnews.com/news/gun-control-biden-bill-into-law/'
+URL = 'https://www.theguardian.com/commentisfree/joris-luyendijk-banking-blog/2011/nov/09/goldman-sachs-elevator-gossip-tweets'
 Text = 'The small plane carrying a pilot and two passengers was travelling north over Haulover Inlet Bridge when it crashed into an SUV travelling southbound, Miami-Dade police said in a press release. The plane then caught fire and fire officials discovered a body in the plane while extinguishing the flames.'
 
-input4 = st.selectbox(
+input_API = st.selectbox(
      'Select the API: ',
      ['Natural Language API','Content Moderation API']
      )
 
 # Show option based on user selection 
 
-if input4 == 'Natural Language API':
-     input2 = st.selectbox(
+if input_API == 'Natural Language API':
+     input_NL_category = st.selectbox(
           '[Cloud NL API] Which categories should be flagged?',
           ['None', 'Sensitive Subjects', 'Adult', 'Health']
           )
-     input6 = st.radio(
+     input_type = st.radio(
      "Select Input ",
      ('URL', 'Free Text'))
 
      uploaded_file = None
 else:
-     input6 = st.radio(
+     input_type = st.radio(
      "Select Input ",
      ('URL', 'Free Text', 'PNG File'))
 
 # Show input fields based on user selection 
 
-if input6 == 'Free Text':
+if input_type == 'Free Text':
      uploaded_file = None
-     input5 = st.text_area("Insert Free Text", Text ) 
-     text_content = input5
-elif input6 == 'URL':
+     input_text = st.text_area("Insert Free Text", Text ) 
+     text_content = input_text
+elif input_type == 'URL':
      uploaded_file = None          
      input = st.text_area("Insert URL", URL)
      #text_content variable will be assigned after parsing paragraphs
-elif input6 == 'PNG File':     
+elif input_type == 'PNG File':     
      uploaded_file = st.file_uploader("Choose a file")
      if uploaded_file is not None:
           # To read file as bytes:
@@ -56,7 +56,7 @@ elif input6 == 'PNG File':
           pass
      
  # Set threshold
-input3 = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
+input_threshold = st.slider(label="Set confidence threshold", min_value=0.1, max_value=1.0, value=0.7, step=.1)
 
 
 # Define the NL API function
@@ -92,7 +92,7 @@ def classify_text(text_content):
         #st.write(u"Category name: {}".format(category.name))
         #st.write(u"Confidence: {}".format(category.confidence))
           
-        if input2 in category.name and category.confidence >= input3 and signal == 'brand safe':
+        if input_NL_category in category.name and category.confidence >= input_threshold and signal == 'brand safe':
             signal = 'brand unsafe'
                
             # Note that the following output only details the first category and confidence that affects the brand safety flag   
@@ -135,7 +135,7 @@ def moderate_content(text_content):
      signal = 'brand safe'
 
      for entity in document.entities:
-         if entity.confidence >= input3 and signal == 'brand safe':
+         if entity.confidence >= input_threshold and signal == 'brand safe':
              signal = 'brand unsafe'
              # Note that the following output only details the first category and confidence that affects the brand safety flag   
              st.write(u"Category name: {}".format(entity.type_))
@@ -161,9 +161,9 @@ if uploaded_file is not None:
      signal = moderate_content(text_content = text_content) 
 
 # If free text is detected, run the content moderation without URL scraping     
-elif input6 == 'Free Text':
-   text_content = input5
-   if input4 == 'Natural Language API':
+elif input_type == 'Free Text':
+   text_content = input_text
+   if input_API == 'Natural Language API':
      signal = classify_text(text_content = text_content)
    else:       
      signal = moderate_content(text_content = text_content)   
@@ -176,7 +176,7 @@ elif input6 == 'Free Text':
    )
 
 # Scrape URL and run classifier
-elif input6 == 'URL': 
+elif input_type == 'URL': 
      # Take URL input and parse
      URL = input
      page = requests.get(URL)
@@ -185,10 +185,10 @@ elif input6 == 'URL':
      # Run classifier
      i=0
      for para in soup.find_all("p"):
-          if(len(str(para)) > 175):
+          if(len(str(para)) > 120):
              st.write("paragraph #",str(i))
              text_content = para.get_text()
-             if input4 == 'Natural Language API':
+             if input_API == 'Natural Language API':
                signal = classify_text(text_content = text_content)
              else:       
                signal = moderate_content(text_content = text_content)   
@@ -200,5 +200,5 @@ elif input6 == 'URL':
              (text_content, signal, background),
              )
              st.markdown("""---""")
-          i+=1
+             i+=1
         
