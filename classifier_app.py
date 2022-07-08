@@ -185,7 +185,7 @@ elif input_type == 'URL':
      # Run classifier
      i=0
      for para in soup.find_all("p"):
-          if(len(str(para)) > 120):
+          if(len(str(para)) > 140):
              st.write("paragraph #",str(i))
              text_content = para.get_text()
              if input_API == 'Natural Language API':
