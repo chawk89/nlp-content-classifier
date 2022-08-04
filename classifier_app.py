@@ -105,7 +105,7 @@ def classify_text(text_content):
 def moderate_content(text_content):
      project_id= '514252618350'
      location = 'us'
-     processor_id = '7f6a1f147db4e7a2'
+     processor_id = '941d43789dae7e98'
      credentials = service_account.Credentials.from_service_account_info(
      st.secrets["gcp_service_account"]
      )
