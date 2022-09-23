@@ -63,7 +63,7 @@ def classify_text(text_content):
          type_ = gc.Document.Type.HTML 
 
     document = {"content": text_content, "type_": type_}
-    model = {"v2Model": {"contentCategoriesVersion": V2} }
+    model = {"v2Model": V2 }
 
     response = client.classify_text(request = {'document': document}, {'classificationModelOptions': model} )
    
