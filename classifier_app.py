@@ -73,7 +73,7 @@ def classify_text(text_content):
         #st.write(u"Category name: {}".format(category.name))
         #st.write(u"Confidence: {}".format(category.confidence))
           
-        if input_NL_category in category.name and category.confidence >= input_threshold:
+        if category.confidence >= input_threshold:
             signal = category.name
                
             # Note that the following output only details the first category and confidence that affects the brand safety flag   
