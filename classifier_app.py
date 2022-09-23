@@ -65,7 +65,7 @@ def classify_text(text_content):
     #document = {"content": text_content, "type_": type_}
     model = {"v2Model": {"contentCategoriesVersion": 'V2'}}
      
-    document = {"content": text_content, "type_": type_, "language": language}
+    document = {"content": text_content, "type_": type_}
     response = client.classify_text(request = {'document': document})
     # Loop through classified categories returned from the API
     for category in response.categories:
