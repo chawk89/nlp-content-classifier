@@ -63,20 +63,10 @@ def classify_text(text_content):
          type_ = gc.Document.Type.HTML 
 
     #document = {"content": text_content, "type_": type_}
-    #model = {"v2Model": {"contentCategoriesVersion": V2}}
-
-    response = client.classify_text(request = {
-    'document':{
-    'type':'PLAIN_TEXT',
-    'content':'Google, headquartered in Mountain View, unveiled the new Android'
-  },
-  'classificationModelOptions': {
-    'v2Model': {
-      'contentCategoriesVersion': 'V2',
-    }
-   } 
-  }      
-  )   
+    model = {"v2Model": {"contentCategoriesVersion": 'V2'}}
+     
+    document = {"content": text_content, "type_": type_, "language": language}
+    response = client.classify_text(request = {'document': document}, {'classificationModelOptions': model})
     # Loop through classified categories returned from the API
     for category in response.categories:
           
