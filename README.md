@@ -1,2 +1,2 @@
-# brand-safety
-Demo application for brand safety solution.
+# nlp-classification
+Demo application for nlp classification.
