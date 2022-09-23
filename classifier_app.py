@@ -21,9 +21,9 @@ Text = 'The small plane carrying a pilot and two passengers was travelling north
 
 if input_API == 'Natural Language API':
 
-input_type = st.radio(
-"Select Input ",
-('URL', 'Free Text'))
+     input_type = st.radio(
+     "Select Input ",
+     ('URL', 'Free Text'))
 
 
 # Show input fields based on user selection 
