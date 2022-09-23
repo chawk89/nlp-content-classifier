@@ -31,7 +31,7 @@ if input_type == 'Free Text':
      input_text = st.text_area("Insert Free Text", Text ) 
      text_content = input_text
 elif input_type == 'URL':         
-     input = st.text_area("Insert URL", URL)
+     input_text = st.text_area("Insert URL", URL)
      text_content = input
 else:
      pass
