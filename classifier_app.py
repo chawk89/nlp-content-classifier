@@ -62,12 +62,23 @@ def classify_text(text_content):
     else:
          type_ = gc.Document.Type.HTML 
 
-    document = {"content": text_content, "type_": type_}
-    model = {"v2Model": V2 }
+    #document = {"content": text_content, "type_": type_}
+    #model = {"v2Model": {"contentCategoriesVersion": V2}}
 
-    response = client.classify_text(request = {'document': document}, {'classificationModelOptions': model} )
-   
-     
+    response = client.classify_text(request = {
+    'document':{
+    'type':'PLAIN_TEXT',
+    'content':'Google, headquartered in Mountain View, unveiled the new Android
+    phone at the Consumer Electronic Show.  Sundar Pichai said in his keynote
+    that users love their new Android phones.'
+  },
+  'classificationModelOptions': {
+    'v2Model': {
+      'contentCategoriesVersion': 'V2',
+    }
+   } 
+  }      
+  )   
     # Loop through classified categories returned from the API
     for category in response.categories:
           
