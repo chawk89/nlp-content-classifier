@@ -68,9 +68,7 @@ def classify_text(text_content):
     response = client.classify_text(request = {
     'document':{
     'type':'PLAIN_TEXT',
-    'content':'Google, headquartered in Mountain View, unveiled the new Android
-    phone at the Consumer Electronic Show.  Sundar Pichai said in his keynote
-    that users love their new Android phones.'
+    'content':'Google, headquartered in Mountain View, unveiled the new Android'
   },
   'classificationModelOptions': {
     'v2Model': {
