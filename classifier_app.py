@@ -62,16 +62,17 @@ def classify_text(text_content):
     else:
          type_ = gc.Document.Type.HTML 
 
+    content_categories_version = (
+        language_v1.ClassificationModelOptions.V2Model.ContentCategoriesVersion.V2)
 
-     
     document = {"content": text_content, "type_": type_}
     model = {"v2Model": {
-         "contentCategoriesVersion": 'V2'}
-            } 
+         "content_categories_version": content_categories_version}
+            }
      
     response = client.classify_text(
          request = {'document': document, 
-         'classificationModelOptions': model}
+         'classification_model_options': model}
     )
     # Loop through classified categories returned from the API
     for category in response.categories:
