@@ -3,5 +3,5 @@ streamlit
 requests
 bs4
 google.cloud.language < 2.6.1
-google.cloud.documentai < 1.4.2
+google.cloud.documentai < 2.1.0
 st-annotated-text < 3.0.0
