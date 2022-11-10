@@ -67,7 +67,7 @@ def classify_text(text_content):
 
     document = {"content": text_content, "type_": type_}
     model = {"v2Model": {
-         "content_categories_version": content_categories_version}
+         "content_categories_version": V2}
             }
      
     response = client.classify_text(
