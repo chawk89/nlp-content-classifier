@@ -62,8 +62,6 @@ def classify_text(text_content):
     else:
          type_ = gc.Document.Type.HTML 
 
-    content_categories_version = (
-        ContentCategoriesVersion.V2)
 
     document = {"content": text_content, "type_": type_}
     model = {"v2Model": {
