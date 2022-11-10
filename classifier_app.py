@@ -65,7 +65,7 @@ def classify_text(text_content):
     content_categories_version = (
         gc.ClassificationModelOptions.V2Model.ContentCategoriesVersion.V2)
     document = {"content": text_content, "type_": type_}
-    model = {"v2Model": {
+    model = {"v2_model": {
          "content_categories_version": content_categories_version}
             }
      
